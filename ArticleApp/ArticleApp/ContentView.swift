@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var username: String = ""
+    @State var password: String = ""
+    
     var body: some View {
         VStack {
-            Text("Article App")
+            Text("Login Page")
                 .font(.largeTitle)
                 .fontWeight(.black)
                 .padding(.bottom, 42)
+            VStack(spacing: 16.0) {
+                InputFieldView(data: $username, title: "Username")
+                InputFieldView(data: $password, title: "Passwords")
+            }.padding(.bottom, 16)
+            
             Button(action: {}) {
                 Text("Sign In")
                     .fontWeight(.heavy)
@@ -26,11 +34,11 @@ struct ContentView: View {
             }
             
             HStack {
-                Spacer()                          // spacer to push text to the right
+                Spacer()
                 Text("Forgotten Password?")
-                    .fontWeight(.thin)            // make the font thinner
-                    .foregroundColor(Color.blue)  // make the color blue
-                    .underline()                  // underline the text
+                    .fontWeight(.thin)
+                    .foregroundColor(Color.blue)
+                    .underline()
             }.padding(.top, 16)
         }
         .padding()
