@@ -35,7 +35,7 @@ struct ContentView: View {
             
             HStack {
                 Spacer()
-                Text("Forgotten Password?")
+                Text("Register !")
                     .fontWeight(.thin)
                     .foregroundColor(Color.blue)
                     .underline()
