@@ -15,6 +15,7 @@
 		04DE2C852CC51B6F0097205B /* ArticleAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2C842CC51B6F0097205B /* ArticleAppUITests.swift */; };
 		04DE2C872CC51B6F0097205B /* ArticleAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2C862CC51B6F0097205B /* ArticleAppUITestsLaunchTests.swift */; };
 		04DE2C952CC529400097205B /* InputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2C942CC529400097205B /* InputFieldView.swift */; };
+		04DE2C972CC5C0E20097205B /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2C962CC5C0E20097205B /* RegisterPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		04DE2C842CC51B6F0097205B /* ArticleAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAppUITests.swift; sourceTree = "<group>"; };
 		04DE2C862CC51B6F0097205B /* ArticleAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		04DE2C942CC529400097205B /* InputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldView.swift; sourceTree = "<group>"; };
+		04DE2C962CC5C0E20097205B /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				04DE2C6C2CC51B6E0097205B /* Assets.xcassets */,
 				04DE2C6E2CC51B6E0097205B /* ArticleApp.entitlements */,
 				04DE2C6F2CC51B6E0097205B /* Preview Content */,
+				04DE2C962CC5C0E20097205B /* RegisterPage.swift */,
 			);
 			path = ArticleApp;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				04DE2C6B2CC51B6C0097205B /* ContentView.swift in Sources */,
 				04DE2C692CC51B6C0097205B /* ArticleAppApp.swift in Sources */,
 				04DE2C952CC529400097205B /* InputFieldView.swift in Sources */,
+				04DE2C972CC5C0E20097205B /* RegisterPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
