@@ -14,6 +14,7 @@
 		04DE2C7B2CC51B6F0097205B /* ArticleAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2C7A2CC51B6F0097205B /* ArticleAppTests.swift */; };
 		04DE2C852CC51B6F0097205B /* ArticleAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2C842CC51B6F0097205B /* ArticleAppUITests.swift */; };
 		04DE2C872CC51B6F0097205B /* ArticleAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2C862CC51B6F0097205B /* ArticleAppUITestsLaunchTests.swift */; };
+		04DE2C952CC529400097205B /* InputFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2C942CC529400097205B /* InputFieldView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		04DE2C802CC51B6F0097205B /* ArticleAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArticleAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DE2C842CC51B6F0097205B /* ArticleAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAppUITests.swift; sourceTree = "<group>"; };
 		04DE2C862CC51B6F0097205B /* ArticleAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		04DE2C942CC529400097205B /* InputFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		04DE2C672CC51B6C0097205B /* ArticleApp */ = {
 			isa = PBXGroup;
 			children = (
+				04DE2C932CC529110097205B /* Component */,
 				04DE2C682CC51B6C0097205B /* ArticleAppApp.swift */,
 				04DE2C6A2CC51B6C0097205B /* ContentView.swift */,
 				04DE2C6C2CC51B6E0097205B /* Assets.xcassets */,
@@ -127,6 +130,14 @@
 				04DE2C862CC51B6F0097205B /* ArticleAppUITestsLaunchTests.swift */,
 			);
 			path = ArticleAppUITests;
+			sourceTree = "<group>";
+		};
+		04DE2C932CC529110097205B /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				04DE2C942CC529400097205B /* InputFieldView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +272,7 @@
 			files = (
 				04DE2C6B2CC51B6C0097205B /* ContentView.swift in Sources */,
 				04DE2C692CC51B6C0097205B /* ArticleAppApp.swift in Sources */,
+				04DE2C952CC529400097205B /* InputFieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
