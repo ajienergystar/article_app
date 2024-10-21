@@ -8,54 +8,84 @@
 import SwiftUI
 
 struct ArticlesView: View {
-    @StateObject private var viewModel = ArticlesViewModel()
-    
+    @StateObject var viewModel: ArticlesViewModel
+
     var body: some View {
         NavigationView {
-            List(viewModel.articles) { article in
-                VStack(alignment: .leading) {
-                    AsyncImage(url: URL(string: article.imageUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 200)
-                            .clipped()
-                    } placeholder: {
-                        ProgressView()
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView("Loading articles...")
+                } else if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                } else {
+                    List(viewModel.articles) { article in
+                        NavigationLink(destination: ArticleDetailView(article: article)) {
+                            ArticleRowView(article: article)
+                        }
                     }
-                    
-                    Text(article.title)
-                        .font(.headline)
-                        .padding(.top, 8)
-                    
-                    Text(article.summary)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .lineLimit(3)
-                    
-                    HStack {
-                        Text("Published at: \(formattedDate(article.publishedAt))")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                        
-                        Spacer()
-                        
-                        Link("Read more", destination: URL(string: article.url)!)
-                    }
+                    .navigationTitle("Articles")
                 }
-                .padding()
             }
-            .navigationTitle("Article News")
+            .onAppear {
+                viewModel.fetchArticles()
+            }
         }
     }
-    
-    private func formattedDate(_ isoDate: String) -> String {
-        let dateFormatter = ISO8601DateFormatter()
-        if let date = dateFormatter.date(from: isoDate) {
-            let displayFormatter = DateFormatter()
-            displayFormatter.dateStyle = .medium
-            return displayFormatter.string(from: date)
+}
+
+struct ArticleRowView: View {
+    let article: Article
+
+    var body: some View {
+        HStack {
+            AsyncImage(url: URL(string: article.imageUrl)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+            } placeholder: {
+                ProgressView()
+            }
+
+            VStack(alignment: .leading) {
+                Text(article.title)
+                    .font(.headline)
+                Text(article.summary)
+                    .font(.subheadline)
+                    .lineLimit(3)
+                    .padding(.top, 4)
+            }
         }
-        return isoDate
+    }
+}
+
+struct ArticleDetailView: View {
+    let article: Article
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(article.title)
+                .font(.title)
+                .padding(.bottom, 8)
+
+            AsyncImage(url: URL(string: article.imageUrl)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } placeholder: {
+                ProgressView()
+            }
+            Text(article.summary)
+                .padding(.top, 8)
+
+            Link("Read more", destination: URL(string: article.url)!)
+                .padding(.top, 8)
+                .foregroundColor(.blue)
+
+            Spacer()
+        }
+        .padding()
+        .navigationTitle(article.title)
     }
 }

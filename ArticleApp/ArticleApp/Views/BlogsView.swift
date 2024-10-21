@@ -8,54 +8,84 @@
 import SwiftUI
 
 struct BlogsView: View {
-    @StateObject private var viewModel = BlogsViewModel()
-    
+    @StateObject var viewModel: BlogsViewModel
+
     var body: some View {
         NavigationView {
-            List(viewModel.blogs) { blog in
-                VStack(alignment: .leading) {
-                    AsyncImage(url: URL(string: blog.imageUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 200)
-                            .clipped()
-                    } placeholder: {
-                        ProgressView()
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView("Loading blogs...")
+                } else if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                } else {
+                    List(viewModel.blogs) { blog in
+                        NavigationLink(destination: BlogDetailView(blog: blog)) {
+                            BlogRowView(blog: blog)
+                        }
                     }
-                    
-                    Text(blog.title)
-                        .font(.headline)
-                        .padding(.top, 8)
-                    
-                    Text(blog.summary)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .lineLimit(3)
-                    
-                    HStack {
-                        Text("Published at: \(formattedDate(blog.publishedAt))")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                        
-                        Spacer()
-                        
-                        Link("Read more", destination: URL(string: blog.url)!)
-                    }
+                    .navigationTitle("Blogs")
                 }
-                .padding()
             }
-            .navigationTitle("Spaceflight Blogs")
+            .onAppear {
+                viewModel.fetchBlogs()
+            }
         }
     }
-    
-    private func formattedDate(_ isoDate: String) -> String {
-        let dateFormatter = ISO8601DateFormatter()
-        if let date = dateFormatter.date(from: isoDate) {
-            let displayFormatter = DateFormatter()
-            displayFormatter.dateStyle = .medium
-            return displayFormatter.string(from: date)
+}
+
+struct BlogRowView: View {
+    let blog: Blog
+
+    var body: some View {
+        HStack {
+            AsyncImage(url: URL(string: blog.imageUrl)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+            } placeholder: {
+                ProgressView()
+            }
+
+            VStack(alignment: .leading) {
+                Text(blog.title)
+                    .font(.headline)
+                Text(blog.summary)
+                    .font(.subheadline)
+                    .lineLimit(3)
+                    .padding(.top, 4)
+            }
         }
-        return isoDate
+    }
+}
+
+struct BlogDetailView: View {
+    let blog: Blog
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(blog.title)
+                .font(.title)
+                .padding(.bottom, 8)
+
+            AsyncImage(url: URL(string: blog.imageUrl)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } placeholder: {
+                ProgressView()
+            }
+            Text(blog.summary)
+                .padding(.top, 8)
+
+            Link("Read more", destination: URL(string: blog.url)!)
+                .padding(.top, 8)
+                .foregroundColor(.blue)
+
+            Spacer()
+        }
+        .padding()
+        .navigationTitle(blog.title)
     }
 }

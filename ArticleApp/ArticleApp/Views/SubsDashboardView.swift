@@ -10,20 +10,20 @@ import SwiftUI
 
 // MARK: - ArticleView
 struct ArticleView: View {
-    @ObservedObject var articleViewModels = ArticlesViewModel()
-
+    @StateObject var viewModel: ArticlesViewModel
+    
     var body: some View {
         VStack {
             HStack {
                 Text("Article")
                 Spacer()
-                NavigationLink(destination: ArticlesView()) {
+                NavigationLink(destination: ArticlesView(viewModel: AppDependencyInjector.articleInject())) {
                     Text("see more")
                 }
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(articleViewModels.articles) { article in
+                    ForEach(viewModel.articles) { article in
                         VStack {
                             AsyncImage(url: URL(string: article.imageUrl)) { image in
                                 image
@@ -40,7 +40,7 @@ struct ArticleView: View {
                     }
                 }
             }.onAppear {
-                articleViewModels.fetchArticles()
+                viewModel.fetchArticles()
             }
         }
     }
@@ -48,20 +48,20 @@ struct ArticleView: View {
 
 // Similar views for BlogView and ReportView
 struct BlogView: View {
-    @ObservedObject var blogViewModels = BlogsViewModel()
-
+    @StateObject var viewModel: BlogsViewModel
+    
     var body: some View {
         VStack {
             HStack {
                 Text("Blog")
                 Spacer()
-                NavigationLink(destination: BlogsView()) {
+                NavigationLink(destination: BlogsView(viewModel: AppDependencyInjector.blogInject())) {
                     Text("see more")
                 }
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(blogViewModels.blogs) { blog in
+                    ForEach(viewModel.blogs) { blog in
                         VStack {
                             AsyncImage(url: URL(string: blog.imageUrl)) { image in
                                 image
@@ -76,27 +76,27 @@ struct BlogView: View {
                     }
                 }
             }.onAppear {
-                blogViewModels.fetchBlogs()
+                viewModel.fetchBlogs()
             }
         }
     }
 }
 
 struct ReportView: View {
-    @ObservedObject var reportViewModels = ReportsViewModel()
-
+    @StateObject var viewModel: ReportsViewModel
+    
     var body: some View {
         VStack {
             HStack {
                 Text("Report")
                 Spacer()
-                NavigationLink(destination: ReportsView()) {
+                NavigationLink(destination: ReportsView(viewModel: AppDependencyInjector.reportInject())) {
                     Text("see more")
                 }
             }
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(reportViewModels.reports) { report in
+                    ForEach(viewModel.reports) { report in
                         VStack {
                             AsyncImage(url: URL(string: report.imageUrl)) { image in
                                 image
@@ -111,7 +111,9 @@ struct ReportView: View {
                     }
                 }
             }.onAppear {
-                reportViewModels.fetchReports()
+                Task {
+                    viewModel.fetchReports()
+                }
             }
         }
     }

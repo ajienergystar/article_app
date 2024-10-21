@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct DashboardView: View {
-    @StateObject private var viewModel = ArticlesViewModel()
     
     var body: some View {
         NavigationView {
@@ -18,11 +17,11 @@ struct DashboardView: View {
                         .font(.largeTitle)
                         .multilineTextAlignment(.center)
                     
-                    ArticleView()
+                    ArticleView(viewModel: AppDependencyInjector.articleInject())
                         .padding(.bottom, 30)
-                    BlogView()
+                    BlogView(viewModel: AppDependencyInjector.blogInject())
                         .padding(.bottom, 30)
-                    ReportView()
+                    ReportView(viewModel: AppDependencyInjector.reportInject())
                 }
             }
             .padding()

@@ -6,34 +6,29 @@
 //
 
 import Foundation
-import Combine
 
+@MainActor
 class BlogsViewModel: ObservableObject {
     @Published var blogs: [Blog] = []
-    private var cancellables = Set<AnyCancellable>()
-    private let url = "https://api.spaceflightnewsapi.net/v4/blogs/?limit=6&offset=6"
-    
-    init() {
-        fetchBlogs()
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+
+    private let fetchBlogsUseCase: FetchBlogsUseCaseProtocol
+
+    init(fetchBlogsUseCase: FetchBlogsUseCaseProtocol) {
+        self.fetchBlogsUseCase = fetchBlogsUseCase
     }
-    
-    func fetchBlogs() {
-        guard let url = URL(string: url) else { return }
-        
-        URLSession.shared.dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: BlogResponse.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print("Error fetching blogs: \(error)")
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] response in
-                self?.blogs = response.results
-            })
-            .store(in: &cancellables)
+
+    func fetchBlogs(limit: Int = 10, offset: Int = 10) {
+        isLoading = true
+        Task {
+            do {
+                let fetchedBlogs = try await fetchBlogsUseCase.execute(limit: limit, offset: offset)
+                blogs = fetchedBlogs
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+            isLoading = false
+        }
     }
 }

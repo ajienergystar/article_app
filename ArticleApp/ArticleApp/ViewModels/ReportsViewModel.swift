@@ -6,34 +6,29 @@
 //
 
 import Foundation
-import Combine
 
+@MainActor
 class ReportsViewModel: ObservableObject {
     @Published var reports: [Report] = []
-    private var cancellables = Set<AnyCancellable>()
-    private let url = "https://api.spaceflightnewsapi.net/v4/reports/?limit=6&offset=6"
-    
-    init() {
-        fetchReports()
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+
+    private let fetchReportsUseCase: FetchReportsUseCaseProtocol
+
+    init(fetchReportsUseCase: FetchReportsUseCaseProtocol) {
+        self.fetchReportsUseCase = fetchReportsUseCase
     }
-    
-    func fetchReports() {
-        guard let url = URL(string: url) else { return }
-        
-        URLSession.shared.dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: ReportResponse.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .failure(let error):
-                    print("Error fetching reports: \(error)")
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] response in
-                self?.reports = response.results
-            })
-            .store(in: &cancellables)
+
+    func fetchReports(limit: Int = 10, offset: Int = 10) {
+        isLoading = true
+        Task {
+            do {
+                let fetchedReports = try await fetchReportsUseCase.execute(limit: limit, offset: offset)
+                reports = fetchedReports
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+            isLoading = false
+        }
     }
 }

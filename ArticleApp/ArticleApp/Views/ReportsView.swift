@@ -8,54 +8,84 @@
 import SwiftUI
 
 struct ReportsView: View {
-    @StateObject private var viewModel = ReportsViewModel()
-    
+    @StateObject var viewModel: ReportsViewModel
+
     var body: some View {
         NavigationView {
-            List(viewModel.reports) { report in
-                VStack(alignment: .leading) {
-                    AsyncImage(url: URL(string: report.imageUrl)) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 200)
-                            .clipped()
-                    } placeholder: {
-                        ProgressView()
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView("Loading reports...")
+                } else if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                } else {
+                    List(viewModel.reports) { report in
+                        NavigationLink(destination: ReportDetailView(report: report)) {
+                            ReportRowView(report: report)
+                        }
                     }
-                    
-                    Text(report.title)
-                        .font(.headline)
-                        .padding(.top, 8)
-                    
-                    Text(report.summary)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .lineLimit(3)
-                    
-                    HStack {
-                        Text("Published at: \(formattedDate(report.publishedAt))")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                        
-                        Spacer()
-                        
-                        Link("Read more", destination: URL(string: report.url)!)
-                    }
+                    .navigationTitle("Reports")
                 }
-                .padding()
             }
-            .navigationTitle("Spaceflight Reports")
+            .onAppear {
+                viewModel.fetchReports()
+            }
         }
     }
-    
-    private func formattedDate(_ isoDate: String) -> String {
-        let dateFormatter = ISO8601DateFormatter()
-        if let date = dateFormatter.date(from: isoDate) {
-            let displayFormatter = DateFormatter()
-            displayFormatter.dateStyle = .medium
-            return displayFormatter.string(from: date)
+}
+
+struct ReportRowView: View {
+    let report: Report
+
+    var body: some View {
+        HStack {
+            AsyncImage(url: URL(string: report.imageUrl)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+            } placeholder: {
+                ProgressView()
+            }
+
+            VStack(alignment: .leading) {
+                Text(report.title)
+                    .font(.headline)
+                Text(report.summary)
+                    .font(.subheadline)
+                    .lineLimit(3)
+                    .padding(.top, 4)
+            }
         }
-        return isoDate
+    }
+}
+
+struct ReportDetailView: View {
+    let report: Report
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(report.title)
+                .font(.title)
+                .padding(.bottom, 8)
+
+            AsyncImage(url: URL(string: report.imageUrl)) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } placeholder: {
+                ProgressView()
+            }
+            Text(report.summary)
+                .padding(.top, 8)
+
+            Link("Read more", destination: URL(string: report.url)!)
+                .padding(.top, 8)
+                .foregroundColor(.blue)
+
+            Spacer()
+        }
+        .padding()
+        .navigationTitle(report.title)
     }
 }

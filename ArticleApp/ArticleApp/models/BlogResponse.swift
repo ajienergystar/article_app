@@ -7,15 +7,7 @@
 
 import Foundation
 
-// MARK: - Blog Model
-struct BlogResponse: Codable {
-    let count: Int
-    let next: String?
-    let previous: String?
-    let results: [Blog]
-}
-
-struct Blog: Codable, Identifiable {
+struct Blog: Identifiable, Codable {
     let id: Int
     let title: String
     let url: String
@@ -23,8 +15,16 @@ struct Blog: Codable, Identifiable {
     let newsSite: String
     let summary: String
     let publishedAt: String
-    
+    let updatedAt: String
+
     enum CodingKeys: String, CodingKey {
-        case id, title, url, summary, newsSite = "news_site", imageUrl = "image_url", publishedAt = "published_at"
+        case id, title, url, summary, newsSite = "news_site", imageUrl = "image_url", publishedAt = "published_at", updatedAt = "updated_at"
     }
+}
+
+struct BlogsResponse: Codable {
+    let count: Int
+    let next: String?
+    let previous: String?
+    let results: [Blog]
 }

@@ -27,6 +27,13 @@
 		04DE2CB62CC6597A0097205B /* ReportsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CB52CC6597A0097205B /* ReportsViewModel.swift */; };
 		04DE2CB82CC6599F0097205B /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CB72CC6599F0097205B /* ReportsView.swift */; };
 		04DE2CBA2CC65CB30097205B /* SubsDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CB92CC65CB30097205B /* SubsDashboardView.swift */; };
+		04DE2CBC2CC666560097205B /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CBB2CC666560097205B /* Services.swift */; };
+		04DE2CBF2CC681230097205B /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CBE2CC681230097205B /* Constant.swift */; };
+		04DE2CC12CC689D30097205B /* ArticleUseCaseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CC02CC689D20097205B /* ArticleUseCaseLayer.swift */; };
+		04DE2CC32CC68A350097205B /* ModulesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CC22CC68A350097205B /* ModulesRepository.swift */; };
+		04DE2CC52CC68B4A0097205B /* AppDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CC42CC68B4A0097205B /* AppDependencyInjector.swift */; };
+		04DE2CC72CC68F2B0097205B /* BlogsUseCaseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CC62CC68F2B0097205B /* BlogsUseCaseLayer.swift */; };
+		04DE2CCA2CC691A00097205B /* ReportsUseCaseLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CC92CC691A00097205B /* ReportsUseCaseLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +78,13 @@
 		04DE2CB52CC6597A0097205B /* ReportsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsViewModel.swift; sourceTree = "<group>"; };
 		04DE2CB72CC6599F0097205B /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
 		04DE2CB92CC65CB30097205B /* SubsDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsDashboardView.swift; sourceTree = "<group>"; };
+		04DE2CBB2CC666560097205B /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		04DE2CBE2CC681230097205B /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		04DE2CC02CC689D20097205B /* ArticleUseCaseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleUseCaseLayer.swift; sourceTree = "<group>"; };
+		04DE2CC22CC68A350097205B /* ModulesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesRepository.swift; sourceTree = "<group>"; };
+		04DE2CC42CC68B4A0097205B /* AppDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyInjector.swift; sourceTree = "<group>"; };
+		04DE2CC62CC68F2B0097205B /* BlogsUseCaseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogsUseCaseLayer.swift; sourceTree = "<group>"; };
+		04DE2CC92CC691A00097205B /* ReportsUseCaseLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsUseCaseLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +135,8 @@
 		04DE2C672CC51B6C0097205B /* ArticleApp */ = {
 			isa = PBXGroup;
 			children = (
+				04DE2CC82CC690980097205B /* Layers */,
+				04DE2CBD2CC6800D0097205B /* Helper */,
 				04DE2C9E2CC649420097205B /* Views */,
 				04DE2C9B2CC637710097205B /* ViewModels */,
 				04DE2C982CC634520097205B /* models */,
@@ -131,6 +147,7 @@
 				04DE2C6E2CC51B6E0097205B /* ArticleApp.entitlements */,
 				04DE2C6F2CC51B6E0097205B /* Preview Content */,
 				04DE2C962CC5C0E20097205B /* RegisterPage.swift */,
+				04DE2CBB2CC666560097205B /* Services.swift */,
 			);
 			path = ArticleApp;
 			sourceTree = "<group>";
@@ -198,6 +215,26 @@
 				04DE2CB92CC65CB30097205B /* SubsDashboardView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		04DE2CBD2CC6800D0097205B /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				04DE2CBE2CC681230097205B /* Constant.swift */,
+				04DE2CC22CC68A350097205B /* ModulesRepository.swift */,
+				04DE2CC42CC68B4A0097205B /* AppDependencyInjector.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		04DE2CC82CC690980097205B /* Layers */ = {
+			isa = PBXGroup;
+			children = (
+				04DE2CC02CC689D20097205B /* ArticleUseCaseLayer.swift */,
+				04DE2CC62CC68F2B0097205B /* BlogsUseCaseLayer.swift */,
+				04DE2CC92CC691A00097205B /* ReportsUseCaseLayer.swift */,
+			);
+			path = Layers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,8 +367,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DE2CC32CC68A350097205B /* ModulesRepository.swift in Sources */,
 				04DE2CB02CC655640097205B /* BlogsViewModel.swift in Sources */,
+				04DE2CBF2CC681230097205B /* Constant.swift in Sources */,
 				04DE2C6B2CC51B6C0097205B /* ContentView.swift in Sources */,
+				04DE2CC52CC68B4A0097205B /* AppDependencyInjector.swift in Sources */,
+				04DE2CC12CC689D30097205B /* ArticleUseCaseLayer.swift in Sources */,
 				04DE2C692CC51B6C0097205B /* ArticleAppApp.swift in Sources */,
 				04DE2CAE2CC6553D0097205B /* BlogResponse.swift in Sources */,
 				04DE2CA82CC654300097205B /* ArticleResponse.swift in Sources */,
@@ -339,10 +380,13 @@
 				04DE2CB62CC6597A0097205B /* ReportsViewModel.swift in Sources */,
 				04DE2CB42CC659540097205B /* ReportResponse.swift in Sources */,
 				04DE2CA02CC649600097205B /* DashboardView.swift in Sources */,
+				04DE2CCA2CC691A00097205B /* ReportsUseCaseLayer.swift in Sources */,
 				04DE2CBA2CC65CB30097205B /* SubsDashboardView.swift in Sources */,
+				04DE2CC72CC68F2B0097205B /* BlogsUseCaseLayer.swift in Sources */,
 				04DE2CAA2CC654640097205B /* ArticlesViewModel.swift in Sources */,
 				04DE2CB82CC6599F0097205B /* ReportsView.swift in Sources */,
 				04DE2C952CC529400097205B /* InputFieldView.swift in Sources */,
+				04DE2CBC2CC666560097205B /* Services.swift in Sources */,
 				04DE2C972CC5C0E20097205B /* RegisterPage.swift in Sources */,
 				04DE2CAC2CC6549C0097205B /* ArticlesView.swift in Sources */,
 			);
