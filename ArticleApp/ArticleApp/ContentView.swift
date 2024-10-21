@@ -11,8 +11,11 @@ struct ContentView: View {
     @State var username: String = ""
     @State var password: String = ""
     
+    @State private var navigateToDashboard = false
+    
+    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Text("Login Page")
                     .font(.largeTitle)
@@ -23,7 +26,9 @@ struct ContentView: View {
                     InputFieldView(data: $password, title: "Passwords")
                 }.padding(.bottom, 16)
                 
-                Button(action: {}) {
+                Button(action: {
+                    navigateToDashboard = true
+                }) {
                     Text("Sign In")
                         .fontWeight(.heavy)
                         .font(.title3)
@@ -45,8 +50,12 @@ struct ContentView: View {
                 }.padding(.top, 16)
             }
             .padding()
+            .navigationDestination(isPresented: $navigateToDashboard) {
+                ReportsView()
+            }
         }
     }
+    
 }
 
 #Preview {
