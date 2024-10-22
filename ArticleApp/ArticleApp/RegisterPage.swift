@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct RegisterPage: View {
-    @State private var username: String = ""
     @State private var email: String = ""
-    @State private var phoneNumber: String = ""
-    @State private var address: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
+    
+    @EnvironmentObject var authService: AuthService
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ScrollView {
@@ -25,31 +25,18 @@ struct RegisterPage: View {
                     .fontWeight(.bold)
                     .padding(.bottom, 20)
                 
-                // Username TextField
-                InputFieldView(data: $username, title: "Username")
-                    .padding(.horizontal)
-                
                 // Email TextField
                 InputFieldView(data: $email, title: "Email")
                     .padding(.horizontal)
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                 
-                // Phone Number TextField
-                InputFieldView(data: $phoneNumber, title: "Phone Number")
-                    .padding(.horizontal)
-                    .keyboardType(.phonePad)
-                
-                // Address TextField
-                InputFieldView(data: $address, title: "Address")
-                    .padding(.horizontal)
-                   
                 // Password SecureField
-                InputFieldView(data: $password, title: "Password")
+                InputSecureFieldView(data: $password, title: "Password")
                     .padding(.horizontal)
                 
                 // Confirm Password SecureField
-                InputFieldView(data: $confirmPassword, title: "Confirm Password")
+                InputSecureFieldView(data: $confirmPassword, title: "Confirm Password")
                     .padding(.horizontal)
                 
                 // Register Button
@@ -75,7 +62,7 @@ struct RegisterPage: View {
     
     // Registration validation and logic
     private func registerUser() {
-        guard !username.isEmpty else {
+        guard !email.isEmpty else {
             alertMessage = "Please enter your username."
             showAlert = true
             return
@@ -83,18 +70,6 @@ struct RegisterPage: View {
         
         guard isValidEmail(email) else {
             alertMessage = "Please enter a valid email address."
-            showAlert = true
-            return
-        }
-        
-        guard isValidPhoneNumber(phoneNumber) else {
-            alertMessage = "Please enter a valid phone number."
-            showAlert = true
-            return
-        }
-        
-        guard !address.isEmpty else {
-            alertMessage = "Please enter your address."
             showAlert = true
             return
         }
@@ -111,8 +86,7 @@ struct RegisterPage: View {
             return
         }
         
-        // Perform registration logic here
-        print("User Registered Successfully: \(username), \(email), \(phoneNumber), \(address)")
+        authService.regularCreateAccount(email: email, password: password)
     }
     
     // Email validation function

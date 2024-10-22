@@ -39,6 +39,7 @@
 		04DE2CE42CC760400097205B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04DE2CE32CC760400097205B /* GoogleService-Info.plist */; };
 		04DE2CE92CC76A030097205B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CE82CC76A030097205B /* AuthService.swift */; };
 		04DE2CEB2CC77AB30097205B /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CEA2CC77AB20097205B /* StartView.swift */; };
+		04DE2CED2CC782590097205B /* InputSecureFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE2CEC2CC782590097205B /* InputSecureFieldView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		04DE2CE52CC761510097205B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		04DE2CE82CC76A030097205B /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		04DE2CEA2CC77AB20097205B /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		04DE2CEC2CC782590097205B /* InputSecureFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSecureFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				04DE2C942CC529400097205B /* InputFieldView.swift */,
+				04DE2CEC2CC782590097205B /* InputSecureFieldView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				04DE2CC72CC68F2B0097205B /* BlogsUseCaseLayer.swift in Sources */,
 				04DE2CAA2CC654640097205B /* ArticlesViewModel.swift in Sources */,
 				04DE2CB82CC6599F0097205B /* ReportsView.swift in Sources */,
+				04DE2CED2CC782590097205B /* InputSecureFieldView.swift in Sources */,
 				04DE2C952CC529400097205B /* InputFieldView.swift in Sources */,
 				04DE2CBC2CC666560097205B /* Services.swift in Sources */,
 				04DE2C972CC5C0E20097205B /* RegisterPage.swift in Sources */,
