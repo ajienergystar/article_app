@@ -26,7 +26,8 @@ class AuthService: ObservableObject {
                 print(e.localizedDescription)
                 
             } else {
-                print("Successfully created password account")
+                self.signedIn = true
+                self.startLogoutTimer()
             }
         }
     }
@@ -40,7 +41,6 @@ class AuthService: ObservableObject {
             } else {
                 self.signedIn = true
                 self.startLogoutTimer()
-                print("Login success")
                 completion(nil)
             }
         }

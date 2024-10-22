@@ -9,17 +9,24 @@ import SwiftUI
 
 struct BlogsView: View {
     @StateObject var viewModel: BlogsViewModel
+    @State private var searchText: String = "" // Search text state
 
     var body: some View {
         NavigationView {
             VStack {
+                // Search text field
+                TextField("Search blogs...", text: $searchText)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                
                 if viewModel.isLoading {
                     ProgressView("Loading blogs...")
                 } else if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage)
                         .foregroundColor(.red)
                 } else {
-                    List(viewModel.blogs) { blog in
+                    // Filter blogs based on search text
+                    List(filteredBlogs) { blog in
                         NavigationLink(destination: BlogDetailView(blog: blog)) {
                             BlogRowView(blog: blog)
                         }
@@ -30,6 +37,15 @@ struct BlogsView: View {
             .onAppear {
                 viewModel.fetchBlogs()
             }
+        }
+    }
+    
+    // Filter the blogs based on the search text
+    var filteredBlogs: [Blog] {
+        if searchText.isEmpty {
+            return viewModel.blogs
+        } else {
+            return viewModel.blogs.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
         }
     }
 }

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var alertMessage: String = ""
-    @State private var showAlert: Bool = false
+    @State var email: String = ""
+    @State var password: String = ""
+    @State var alertMessage: String = ""
+    @State var showAlert: Bool = false
     
     @EnvironmentObject var authService: AuthService
     @Environment(\.dismiss) var dismiss
@@ -58,7 +58,7 @@ struct ContentView: View {
         }
     }
     
-    private func loginUser() {
+    public func loginUser() {
         guard !email.isEmpty else {
             alertMessage = "Please enter your email."
             showAlert = true
