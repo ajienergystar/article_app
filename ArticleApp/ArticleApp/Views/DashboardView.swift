@@ -15,7 +15,7 @@ struct DashboardView: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    Text("Welcome/nYour News")
+                    Text("Welcome\nYour News")
                         .font(.largeTitle)
                         .multilineTextAlignment(.center)
                     
