@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var username: String = ""
-    @State var password: String = ""
+    @State private var email: String = ""
+    @State private var password: String = ""
     
-    @State private var navigateToDashboard = false
-    
+    @EnvironmentObject var authService: AuthService
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationStack {
@@ -22,12 +22,16 @@ struct ContentView: View {
                     .fontWeight(.black)
                     .padding(.bottom, 42)
                 VStack(spacing: 16.0) {
-                    InputFieldView(data: $username, title: "Username")
+                    InputFieldView(data: $email, title: "Email")
                     InputFieldView(data: $password, title: "Passwords")
                 }.padding(.bottom, 16)
                 
                 Button(action: {
-                    navigateToDashboard = true
+                    authService.regularSignIn(email: email, password: password) { error in
+                        if let e = error {
+                            print(e.localizedDescription)
+                        }
+                    }
                 }) {
                     Text("Sign In")
                         .fontWeight(.heavy)
@@ -50,9 +54,6 @@ struct ContentView: View {
                 }.padding(.top, 16)
             }
             .padding()
-            .navigationDestination(isPresented: $navigateToDashboard) {
-                DashboardView()
-            }
         }
     }
 }

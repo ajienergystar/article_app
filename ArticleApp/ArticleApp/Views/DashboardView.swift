@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+
 struct DashboardView: View {
+    @EnvironmentObject var authService: AuthService
     
     var body: some View {
         NavigationView {
@@ -25,6 +27,19 @@ struct DashboardView: View {
                 }
             }
             .padding()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Log out") {
+                        print("Log out tapped!")
+                        authService.regularSignOut { error in
+                            
+                            if let e = error {
+                                print(e.localizedDescription)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
